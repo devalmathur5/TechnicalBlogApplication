@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head>
+
+<head th:replace="layout :: site-head">
     <meta charset="UTF-8">
-    <title>Technical Blog Application</title>
+    <title>Spring MVC Application</title>
 </head>
+
+<header th:replace="layout :: logged-out"></header>
+
 <body>
     <h1>All Technicals Posts</h1>
     <main id="posts">   <!--thymeleaf -->

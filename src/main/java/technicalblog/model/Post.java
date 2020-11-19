@@ -2,11 +2,11 @@ package technicalblog.model;
 
 import java.util.Date;
 
+
 public class Post {
     private String title;
     private String body;
     private Date date;
-
 
     public String getTitle() {
         return title;

@@ -8,25 +8,17 @@ import technicalblog.model.Post;
 import technicalblog.service.PostService;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-// Scope of HomeController is Application?!
-// Scope of Model class is Request?!
 
 @Controller
-public class HomeController {
-
-    public HomeController(){
-        System.out.println("HomeController");
-    }
+public class PostController {
 
     @Autowired
     private PostService postService;
 
-    @RequestMapping("/")
-    public String getAllPosts(Model model){
-        ArrayList<Post> posts = postService.getAllPosts();
-        model.addAttribute("posts", posts);
-        return "index";
+    @RequestMapping("users/post")
+    public String getUserPosts(Model model){
+        ArrayList<Post> post = postService.getOnePost();
+        model.addAttribute("post", post);
+        return "post";
     }
 }
