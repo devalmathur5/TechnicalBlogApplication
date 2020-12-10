@@ -1,54 +1,72 @@
 package technicalblog.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import technicalblog.model.Post;
+import technicalblog.repository.PostRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PostService {
 
-    public PostService(){
-        System.out.println("PostService");
+//    @PersistenceUnit(unitName = "techicalblog")
+//    private EntityManagerFactory emf;
+    @Autowired
+    private PostRepository pr;
+    
+    public List<Post> getAllPosts() {
+        return pr.getAllPosts();
     }
 
-    public ArrayList<Post> getAllPosts(){
+    public Post getOnePost(){
 
-        ArrayList<Post> posts = new ArrayList<>();
+        System.out.println("post service : "+pr.getLatestPost());
 
-        Post post1 = new Post();
-        post1.setTitle("Post 1");
-        post1.setBody("body 1");
-        post1.setDate(new Date());
-
-        Post post2 = new Post();
-        post2.setTitle("Post 2");
-        post2.setBody("body 2");
-        post2.setDate(new Date());
-
-        Post post3 = new Post();
-        post3.setTitle("Post 3");
-        post3.setBody("body 3");
-        post3.setDate(new Date());
-
-        posts.add(post1);
-        posts.add(post2);
-        posts.add(post3);
-
-        return posts;
+        return pr.getLatestPost();
     }
 
+    public void createPost (Post newPost){
+        newPost.setDate(new Date());
+        pr.createPost(newPost);
+        System.out.println("new post "+ newPost);
+    }
 
-    public ArrayList<Post> getOnePost(){
-        ArrayList<Post> post = new ArrayList<>();
+    public Post getPost(Integer postId) {
+        return pr.getPost(postId);
+    }
 
-        Post postOne = new Post();
-        postOne.setTitle("This is one Post");
-        postOne.setBody("This post is a valid one");
-        postOne.setDate(new Date());
+    public void updatePost(Post updatedPost){
+        updatedPost.setDate(new Date());
+        pr.updatePost(updatedPost);
+    }
 
-        post.add(postOne);
-        return post;
+    public void deletePost(Integer postId){
+        pr.deletePost(postId);
     }
 }
+
+//--------------------------- JDBC-----------------------------
+
+//        ArrayList<Post> posts = new ArrayList<>();
+//        Connection connection = null;
+//        try{
+//            Class.forName("org.postgresql.Driver");
+//
+//            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/technicalblog","postgres", "postgres");
+//            Statement statement = connection.createStatement();
+//            ResultSet rs = statement.executeQuery("SELECT * FROM posts");
+//            while(rs.next()){
+//                Post post = new Post();
+//                post.setTitle(rs.getString("title"));
+//                post.setBody(rs.getString("body"));
+//                posts.add(post);
+//            }
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//        }
+//        finally{
+//            connection.close();
+//        }
+//        return result;

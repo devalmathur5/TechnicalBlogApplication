@@ -9,6 +9,7 @@ import technicalblog.service.PostService;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 // Scope of HomeController is Application?!
 // Scope of Model class is Request?!
@@ -25,7 +26,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String getAllPosts(Model model){
-        ArrayList<Post> posts = postService.getAllPosts();
+        List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
         return "index";
     }
